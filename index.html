@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>DSA Kampf Tracker</title>
+		<link rel="stylesheet" href="style.css">
+		<script src="util.js"></script>
+		<script src="tracker.js"></script>
+		<script src="function.js"></script>
+		<script src="input.js"></script>
+	</head>
+	<body>
+		<div id="page">
+
+			<!-- Modules -->
+            <div id="module-wrapper">
+                <!--Turn Tracker-->
+                <div class="module" data-status="open">
+                    <div class="head">
+                        <h3 class="centered">
+                            Runden
+                        </h3>
+					</div>
+					<div class="content">
+						derp
+					</div>
+                </div>
+			</div>
+			
+			<!-- Actor List -->
+			<div id="list-wrapper">
+				<div id="actor-list">
+										
+				</div>
+				<h3>Neuer Charakter:</h3>
+				<div id="add-actor">
+					<input type="text" id="actor-add-name" placeholder="Name">
+					<input type="text" id="actor-add-ini"  placeholder="Initiative">
+					<input type="text" id="actor-add-lp"   placeholder="LeP">
+					<input type="text" id="actor-add-asp"  placeholder="AsP">
+					<input type="text" id="actor-add-kp"   placeholder="KaP">
+					<input type="button" id="actor-add-btn" onclick="inputActor();" value="+">
+				</div>
+			</div>
+		</div>
+        <footer id="footer">
+            <div class="left">DSA Kampf Tracker © 2019 Elias Geiß</div>
+        </footer>
+	</body>
+</html>
