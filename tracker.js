@@ -37,7 +37,11 @@ function Tracker() {
 		return actors[name];
 	}
 
-	update = (name, property, value) => {
+	getActors = () => {
+		return actors;
+	}
+
+	updateActor = (name, property, value) => {
 		if(!actors[name]) {
 			console.error("Trying to update non-existant actor: " + name);
 			return;
@@ -47,6 +51,10 @@ function Tracker() {
 			return;
 		}
 		actors[name][property] = value;
+		if(property == "name") {
+			actors[value] = actors['name'];
+			delete actors[name]; //TODO: this deletes the new actor reference made above!
+		}
 	}
 
 	autoUpdate = (name) => {
