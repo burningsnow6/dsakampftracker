@@ -15,6 +15,6 @@ function inputActor() {
 		"ap": ap,
 		"kp": kp
 	});
-	let actorOut = generateActor(newActor);
-	document.getElementById("actor-list").appendChild(actorOut);
+	let out = generateSortedActorList();
+	document.getElementById("actor-list").innerHTML = out;
 }

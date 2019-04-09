@@ -98,6 +98,12 @@ function Tracker() {
 		let target = document.querySelector(".actor-card[data-actor='"+name+"']");
 		target.remove();
 	}
+
+	getSortedActors = () => {
+		return Object.values(actors).sort((a1, a2) => {
+			return a2.ini - a1.ini;
+		});
+	}
 	
 	return this;
 }

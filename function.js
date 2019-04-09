@@ -1,7 +1,6 @@
 
 function generateActor(actor) {
-	let out = document.createElement("div");
-	out.innerHTML = 
+	let out = "" +
 		'<div class="actor-card" data-actor="'+ actor.name +'">' +
 			'<div class="row">'+
 				'<div class="property">' +
@@ -34,4 +33,12 @@ function generateActor(actor) {
 			'</div>' +
 		'</div>';
 	return out;
+}
+
+function generateSortedActorList() {
+	let total = "";
+	tracker.getSortedActors().forEach(actor => {
+		total += generateActor(actor);
+	});
+	return total;
 }
