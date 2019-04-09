@@ -36,7 +36,6 @@ function moduleTurns() {
 			activeActor = 0;
 			updateActors();
 		}
-		console.log("Adding active style to card " + sortedIds[activeActor], "activeActor: " + activeActor, sortedIds, sortedActors);
 		addCardStyle(tracker.getActorById(sortedIds[activeActor]), "active");
 	}
 
@@ -55,5 +54,7 @@ function moduleTurns() {
 const turns = moduleTurns();
 
 function nextTurn() {
-	turns.nextActor();
+	if(Object.keys(tracker.getActors()).length >= 2){
+		turns.nextActor();
+	}
 }

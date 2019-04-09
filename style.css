@@ -90,10 +90,10 @@ input:focus {
 input:focus::placeholder {
 	color: #e5e5e5;
 }
-input[type="submit"], select {
+input[type="submit"], select, input[type="button"] {
 	cursor: pointer;
 }
-input[type="submit"]:hover {
+input[type="submit"]:hover, input[type="button"]:hover {
 	background-color: grey;
 }
 
@@ -248,7 +248,7 @@ select, option {
 .actor-card {
 	width: 90%;
 	border-radius: 10px;
-	background: grey;
+	background: #CCCCCC;
 	padding: 0.5em;
 	margin: 0.2em auto;
 	display: flex;
@@ -275,7 +275,6 @@ select, option {
 	width: 30%;
 	min-width: 3.5em;
 	display: inline-block;
-	color: white;
 }
 
 .actor-card .row input {
