@@ -131,11 +131,12 @@ select, option {
 	width: 100%;
 	max-width: 600px;
 	margin: 0 auto;
+	background: #EEEEEE;
+	box-shadow: grey 5px 5px 3px;
 }
 
 #actor-list {
 	width: 100%;
-	background: lightgrey;
 	margin-bottom: 1em;
 }
 
@@ -250,6 +251,35 @@ select, option {
 	background: grey;
 	padding: 0.5em;
 	margin: 0.2em auto;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.actor-card .row {
+	width: 100%;
+}
+
+.actor-card .row .property {
+	width: 100%;
+	display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    padding: 0 0.2em;
+}
+
+.actor-card .row .label {
+	width: 30%;
+	min-width: 3.5em;
+	display: inline-block;
+	color: white;
+}
+
+.actor-card .row input {
+	width: 70%;
+}
+.actor-card .row input[type="button"] {
+	width: unset;
+	min-width: 3em;
 }
 
 input[type="checkbox"][data-function="show-password"] ~ input[data-type="password-hidden"],  
@@ -276,6 +306,14 @@ label[data-for="checkbox"]:hover {
 	background-color: grey;
 }
 
+
+@media screen and (min-width: 400px) {
+	.actor-card .row .property {
+		width: 50%;
+		justify-content: flex-end;
+	}
+}
+
 @media screen and (min-width: 900px) {
 	#page {
 		flex-wrap: nowrap;
@@ -283,12 +321,12 @@ label[data-for="checkbox"]:hover {
 	}
 
 	#module-wrapper {
-		width: 40%;
+		width: 50%;
 		padding: 3em 2em;
 	}
 	
 	#list-wrapper {
-		width: 40%;
+		width: 50%;
 		padding: 3em 2em;
 	}
 

@@ -8,13 +8,13 @@ function inputActor() {
 	if(!name) {
 		flashError("#actor-add-name");
 	}
-	tracker.addActor({
+	let newActor = tracker.addActor({
 		"name": name,
 		"ini": ini, 
 		"lp": lp,
 		"ap": ap,
 		"kp": kp
 	});
-	let actorOut = generateActor(tracker.getActor(name));
+	let actorOut = generateActor(newActor);
 	document.getElementById("actor-list").appendChild(actorOut);
 }
