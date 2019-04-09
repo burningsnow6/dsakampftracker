@@ -255,6 +255,10 @@ select, option {
 	flex-wrap: wrap;
 }
 
+.actor-card.active {
+	background: #60DD60;
+}
+
 .actor-card .row {
 	width: 100%;
 }

@@ -15,6 +15,45 @@ function inputActor() {
 		"ap": ap,
 		"kp": kp
 	});
-	let out = generateSortedActorList();
-	document.getElementById("actor-list").innerHTML = out;
+	generateSortedActorList();
+}
+
+function moduleTurns() {
+
+	let activeActor = -1;
+	let sortedActors = null;
+	let sortedIds = [];
+	let initialized = false;
+
+	nextActor = () => {
+		if(!initialized) {
+			updateActors();
+		} else {
+			if(sortedIds[activeActor])removeCardStyle(tracker.getActorById(sortedIds[activeActor]), "active");
+		}
+		activeActor++;
+		if(!sortedIds[activeActor]){
+			activeActor = 0;
+			updateActors();
+		}
+		console.log("Adding active style to card " + sortedIds[activeActor], "activeActor: " + activeActor, sortedIds, sortedActors);
+		addCardStyle(tracker.getActorById(sortedIds[activeActor]), "active");
+	}
+
+	updateActors = () => {
+		initialized = true;
+		sortedActors = tracker.getSortedActors();
+		sortedIds = [];
+		sortedActors.forEach((actor)=>{
+			sortedIds.push(actor.id);
+		});
+	}
+
+	return this;
+}
+
+const turns = moduleTurns();
+
+function nextTurn() {
+	turns.nextActor();
 }

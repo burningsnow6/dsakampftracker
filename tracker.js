@@ -2,6 +2,36 @@
 function Tracker() {
 
 	let actors = {};
+	let dict = {};
+	let actorPointer = 1;
+
+	dereference = (name) => {
+		if(!dict[name]) {
+			console.error("No valid actor with name " + name);
+			return null;
+		}
+		if(!actors[dict[name]]) {
+			console.error("Dereferencing error with name " + name +" and reference " + dict[name]);
+			return null;
+		}
+		return actors[dict[name]];
+	}
+	rereference = (id) => {
+		if(!actors[id]){
+			console.error("No valid actor with id "+id);
+			return null;
+		}
+		return actors[id].name;
+	}
+	getActorById = (id) => {
+		if(!actors[id]){
+			console.error("No valid actor with id "+id);
+			return null;
+		}
+		return actors[id];
+	}
+
+	getActor = (name) => {return dereference(name);}
 
 	addActor = (actor) => {
 		if(!actor.name) {
@@ -9,33 +39,28 @@ function Tracker() {
 			return;
 		}
 		let name = actor.name;
-		if(!!actors[actor.name]) {
+		if(!!dict[actor.name]) {
 			count = 2;
 			namenew = actor.name;
-			while(actors[namenew]) {
+			while(dict[namenew]) {
 				namenew = name + " " + count;
 				count++;
 			}
 			name = namenew;
 			console.log("Name already existet, changed to: " + name);
 		}
-		actors[name] = {
+		actors[actorPointer] = {
 			'name': name,
 			'ini': !!actor.ini ? actor.ini : 0,
 			'lp': !!actor.lp ? actor.lp : 0,
 			'ap': !!actor.ap ? actor.ap : 0,
 			'kp': !!actor.kp ? actor.kp : 0,
+			'id': actorPointer,
 			'notes': {}
 		}
-		return actors[name];
-	}
-
-	getActor = (name) => {
-		if(!actors[name]) {
-			console.error("Trying to fetch non-existant actor: " + name);
-			return null;
-		}
-		return actors[name];
+		dict[name] = actorPointer;
+		actorPointer++;
+		return dereference(name);
 	}
 
 	getActors = () => {
@@ -43,23 +68,27 @@ function Tracker() {
 	}
 
 	updateActor = (name, property, value) => {
-		if(!actors[name]) {
+		if(!dict[name]) {
 			console.error("Trying to update non-existant actor: " + name);
 			return;
 		}
-		if(typeof actors[name][property] === "undefined") {
+		if(typeof actors[dict[name]][property] === "undefined") {
 			console.error("Trying to update actor " + name + " with invalid property: " + property);
 			return;
 		}
-		actors[name][property] = value;
+		actors[dict[name]][property] = value;
 		if(property == "name") {
-			actors[value] = actors[name];
-			delete actors[name];
+			dict[value] = dict[name];
+			actorPointer++;
+			delete dict[name];
+		}
+		if(property == "ini") {
+			generateSortedActorList();
 		}
 	}
 
 	autoUpdate = (name, property) => {
-		if(!actors[name]){
+		if(!dict[name]){
 			console.error("Trying to auto-update non-existant actor: " + name);
 			return;
 		}
@@ -68,7 +97,7 @@ function Tracker() {
 			console.error("Card for actor " + name + " could not be found during auto-update");
 			return;
 		}
-		let target = card.querySelector("#actor-card-" + property + "-" + name);
+		let target = card.querySelector("#actor-card-" + property + "-" + dict[name]);
 		if(!target) {
 			console.error("Property "+ property +" for actor " + name + " could not be found during auto-update");
 			return;
@@ -82,19 +111,19 @@ function Tracker() {
 	}
 
 	updateCard = (name) => {
-		let newCard = generateActor(actors[name]);
+		let newCard = generateActor(dereference(name));
 		let target = document.querySelector(".actor-card[data-actor='"+name+"']");
 		target.outerHTML = newCard.outerHTML;
 	}
 
 	updateCardWithNameChange = (nameOld, nameNew) => {
-		let newCard = generateActor(actors[nameNew]);
+		let newCard = generateActor(dereference(nameNew));
 		let target = document.querySelector(".actor-card[data-actor='"+nameOld+"']");
 		target.outerHTML = newCard.outerHTML;
 	}
 
 	deleteActor = (name) => {
-		delete actors[name];
+		delete actors[dict[name]];
 		let target = document.querySelector(".actor-card[data-actor='"+name+"']");
 		target.remove();
 	}
@@ -109,5 +138,4 @@ function Tracker() {
 }
 
 const tracker = Tracker();
-
 
