@@ -37,9 +37,12 @@
 					<input type="text" id="actor-add-name" placeholder="Name">
 					<input type="text" id="actor-add-ini"  placeholder="Initiative">
 					<input type="text" id="actor-add-lp"   placeholder="LeP">
-					<input type="text" id="actor-add-asp"  placeholder="AsP">
+					<input type="text" id="actor-add-ap"  placeholder="AsP">
 					<input type="text" id="actor-add-kp"   placeholder="KaP">
-					<input type="button" id="actor-add-btn" onclick="inputActor();" value="+">
+					<div class="input-group">
+						<input type="button" class="half" id="actor-add-btnadd" onclick="inputActor();" value="+">
+						<input type="button" class="half" id="actor-add-btnclear" onclick="clearActorInput();" value="C">
+					</div>
 				</div>
 			</div>
 		</div>

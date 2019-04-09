@@ -3,7 +3,7 @@ function inputActor() {
 	let name = document.getElementById("actor-add-name").value;
 	let ini = parseInt(document.getElementById("actor-add-ini").value);
 	let lp = parseInt(document.getElementById("actor-add-lp").value);
-	let ap = parseInt(document.getElementById("actor-add-asp").value);
+	let ap = parseInt(document.getElementById("actor-add-ap").value);
 	let kp = parseInt(document.getElementById("actor-add-kp").value);
 	if(!name) {
 		flashError("#actor-add-name");
@@ -16,6 +16,14 @@ function inputActor() {
 		"kp": kp
 	});
 	generateSortedActorList();
+}
+
+function clearActorInput() {
+	document.getElementById("actor-add-name").value = "";
+	document.getElementById("actor-add-ini").value = "";
+	document.getElementById("actor-add-lp").value = "";
+	document.getElementById("actor-add-ap").value = "";
+	document.getElementById("actor-add-kp").value = "";
 }
 
 function moduleTurns() {

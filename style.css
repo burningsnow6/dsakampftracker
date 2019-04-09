@@ -202,26 +202,6 @@ select, option {
 	overflow: hidden;
 }
 
-.logo {
-	margin: 1em auto;
-	display: block;
-}
-
-.form-row {
-	width: 80%;
-	display: inline-flex;
-	flex-wrap: wrap;
-	align-items: baseline;
-	margin: 0.2em 0;
-	justify-content: center;
-}
-.form-row > input, .form-row > select {
-	width: 100%;
-}
-.form-row > input[type="text"] {
-	flex-grow: 10;
-}
-
 .success {
 	width: 50%;
 	background-color: lightgreen;
@@ -243,6 +223,11 @@ select, option {
 
 .flash-error {
 	background-color: lightcoral !important;
+}
+
+.input-group {
+	width: 48%;
+	display: inline-block;
 }
 
 .actor-card {
@@ -283,15 +268,6 @@ select, option {
 .actor-card .row input[type="button"] {
 	width: unset;
 	min-width: 3em;
-}
-
-input[type="checkbox"][data-function="show-password"] ~ input[data-type="password-hidden"],  
-input[type="checkbox"][data-function="show-password"]:checked ~ input[data-type="password-visible"]{
-	display: inline-block;
-}
-input[type="checkbox"][data-function="show-password"] ~ input[data-type="password-visible"],
-input[type="checkbox"][data-function="show-password"]:checked ~ input[data-type="password-hidden"] {
-	display: none;
 }
 
 input[type="checkbox"] {
