@@ -124,6 +124,7 @@ function Tracker() {
 
 	deleteActor = (name) => {
 		delete actors[dict[name]];
+		delete dict[name];
 		let target = document.querySelector(".actor-card[data-actor='"+name+"']");
 		target.remove();
 	}
