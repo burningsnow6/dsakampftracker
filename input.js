@@ -10,7 +10,7 @@ function inputActor() {
 	}
 	let newActor = tracker.addActor({
 		"name": name,
-		"ini": ini, 
+		"ini": ini,
 		"lp": lp,
 		"ap": ap,
 		"kp": kp
@@ -33,7 +33,7 @@ function turnTracker() {
 	this.sortedIds = [];
 	this.turnCount = 0;
 
-	nextActor = () => {
+	this.nextActor = () => {
 		if(this.activeActor == -1 ) document.querySelector(".module[data-module='turns']").classList.remove("active");
 		else if(this.sortedIds[this.activeActor])removeCardStyle(tracker.getActorById(this.sortedIds[this.activeActor]), "active");
 		this.activeActor++;
@@ -42,24 +42,57 @@ function turnTracker() {
 			this.turnCount++;
 			document.querySelector("#turnCounter").innerHTML = this.turnCount;
 			document.querySelector(".module[data-module='turns']").classList.add("active");
-			return;
+		}else {
+			addCardStyle(tracker.getActorById(this.sortedIds[this.activeActor]), "active");
+			scrollToElement(".actor-card[data-actor='"+tracker.getActorById(this.sortedIds[this.activeActor]).name+"']");
 		}
-		addCardStyle(tracker.getActorById(this.sortedIds[this.activeActor]), "active");
-		scrollToElement(".actor-card[data-actor='"+tracker.getActorById(this.sortedIds[this.activeActor]).name+"']");
+
+		//disable actor changing during round
+		if(this.activeActor == -1) {
+			this.enableActorChanges();
+		} else {
+			this.disableActorChanges();
+		}
 	};
 
-	updateActors = () => {
+	this.updateActors = () => {
 		this.activeActor = -1;
 		this.sortedActors = tracker.getSortedActors();
 		this.sortedIds = [];
 		this.sortedActors.forEach((actor)=>{
 			this.sortedIds.push(actor.id);
 		});
+		this.enableActorChanges();
 	};
 
-	resetTurns = () => {
+	this.resetTurns = () => {
 		this.turnCount = 0;
-		updateActors();
+		this.updateActors();
+		document.querySelector("#turnCounter").innerHTML = this.turnCount;
+		document.querySelector(".module[data-module='turns']").classList.add("active");
+		document.querySelectorAll(".actor-card.active").forEach(e => {e.classList.remove("active");});
+	};
+
+	this.enableActorChanges = () => {
+		let target = document.getElementById("list-wrapper");
+		let isDisabled = target.classList.contains("disallowActorChanges");
+		if(isDisabled) {
+			target.classList.remove("disallowActorChanges");
+			document.querySelectorAll(".actor-card input").forEach(e => {
+				e.removeAttribute("disabled");
+			})
+		}
+	};
+
+	this.disableActorChanges = () => {
+		let target = document.getElementById("list-wrapper");
+		let isDisabled = target.classList.contains("disallowActorChanges");
+		if(!isDisabled) {
+			target.classList.add("disallowActorChanges");
+			document.querySelectorAll(".actor-card input[data-role='name'], .actor-card input[data-role='ini'], .actor-card input[data-role='delete']").forEach(e => {
+				e.setAttribute("disabled", "true");
+			})
+		}
 	};
 
 	return this;
@@ -72,3 +105,7 @@ function nextTurn() {
 		turns.nextActor();
 	}
 }
+function resetTurns() {
+	turns.resetTurns();
+}
+

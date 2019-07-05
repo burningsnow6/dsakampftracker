@@ -137,7 +137,7 @@ function Tracker() {
 			return a2.ini - a1.ini;
 		});
 	}
-	
+
 	return this;
 }
 

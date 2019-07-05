@@ -1,4 +1,4 @@
-/* 
+/*
  * RESET
 */
 html, body, div, span, applet, object, iframe,
@@ -10,8 +10,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video, input {
 	margin: 0;
@@ -96,6 +96,9 @@ input[type="submit"], select, input[type="button"] {
 input[type="submit"]:hover, input[type="button"]:hover {
 	background-color: grey;
 }
+input[disabled] {
+	background-color: #BBBBBB !important;
+}
 
 select, option {
 	height: 2em;
@@ -163,6 +166,10 @@ select, option {
 }
 #footer div.right {
 	float: right;
+}
+
+#list-wrapper.disallowActorChanges #add-actor {
+	display: none;
 }
 
 
