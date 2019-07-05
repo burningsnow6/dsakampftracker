@@ -26,40 +26,31 @@ function clearActorInput() {
 	document.getElementById("actor-add-kp").value = "";
 }
 
-function moduleTurns() {
+const turns = {
 
-	let activeActor = -1;
-	let sortedActors = null;
-	let sortedIds = [];
-	let initialized = false;
+	activeActor: -1,
+	sortedActors: null,
+	sortedIds: [],
 
-	nextActor = () => {
-		if(!initialized) {
-			updateActors();
-		} else {
-			if(sortedIds[activeActor])removeCardStyle(tracker.getActorById(sortedIds[activeActor]), "active");
-		}
+	nextActor: () => {
+
+		if(sortedIds[activeActor])removeCardStyle(tracker.getActorById(sortedIds[activeActor]), "active");
 		activeActor++;
 		if(!sortedIds[activeActor]){
 			activeActor = 0;
-			updateActors();
 		}
 		addCardStyle(tracker.getActorById(sortedIds[activeActor]), "active");
-	}
+	},
 
-	updateActors = () => {
-		initialized = true;
+	updateActors: () => {
+		activeActor = -1;
 		sortedActors = tracker.getSortedActors();
 		sortedIds = [];
 		sortedActors.forEach((actor)=>{
 			sortedIds.push(actor.id);
 		});
 	}
-
-	return this;
 }
-
-const turns = moduleTurns();
 
 function nextTurn() {
 	if(Object.keys(tracker.getActors()).length >= 2){

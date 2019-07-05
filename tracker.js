@@ -60,6 +60,7 @@ function Tracker() {
 		}
 		dict[name] = actorPointer;
 		actorPointer++;
+		turns.updateActors();
 		return dereference(name);
 	}
 
@@ -127,6 +128,7 @@ function Tracker() {
 		delete dict[name];
 		let target = document.querySelector(".actor-card[data-actor='"+name+"']");
 		target.remove();
+		turns.updateActors();
 	}
 
 	getSortedActors = () => {
