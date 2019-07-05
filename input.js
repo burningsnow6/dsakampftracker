@@ -26,32 +26,46 @@ function clearActorInput() {
 	document.getElementById("actor-add-kp").value = "";
 }
 
-const turns = {
+function turnTracker() {
 
-	activeActor: -1,
-	sortedActors: null,
-	sortedIds: [],
+	this.activeActor = -1;
+	this.sortedActors = null;
+	this.sortedIds = [];
+	this.turnCount = 0;
 
-	nextActor: () => {
-
-		if(sortedIds[activeActor])removeCardStyle(tracker.getActorById(sortedIds[activeActor]), "active");
-		activeActor++;
-		if(!sortedIds[activeActor]){
-			activeActor = 0;
+	nextActor = () => {
+		if(this.activeActor == -1 ) document.querySelector(".module[data-module='turns']").classList.remove("active");
+		else if(this.sortedIds[this.activeActor])removeCardStyle(tracker.getActorById(this.sortedIds[this.activeActor]), "active");
+		this.activeActor++;
+		if(!this.sortedIds[this.activeActor]){
+			this.activeActor = -1;
+			this.turnCount++;
+			document.querySelector("#turnCounter").innerHTML = this.turnCount;
+			document.querySelector(".module[data-module='turns']").classList.add("active");
+			return;
 		}
-		addCardStyle(tracker.getActorById(sortedIds[activeActor]), "active");
-		scrollToElement(".actor-card[data-actor='"+tracker.getActorById(sortedIds[activeActor]).name+"']");
-	},
+		addCardStyle(tracker.getActorById(this.sortedIds[this.activeActor]), "active");
+		scrollToElement(".actor-card[data-actor='"+tracker.getActorById(this.sortedIds[this.activeActor]).name+"']");
+	};
 
-	updateActors: () => {
-		activeActor = -1;
-		sortedActors = tracker.getSortedActors();
-		sortedIds = [];
-		sortedActors.forEach((actor)=>{
-			sortedIds.push(actor.id);
+	updateActors = () => {
+		this.activeActor = -1;
+		this.sortedActors = tracker.getSortedActors();
+		this.sortedIds = [];
+		this.sortedActors.forEach((actor)=>{
+			this.sortedIds.push(actor.id);
 		});
-	}
+	};
+
+	resetTurns = () => {
+		this.turnCount = 0;
+		updateActors();
+	};
+
+	return this;
 }
+
+const turns = new turnTracker();
 
 function nextTurn() {
 	if(Object.keys(tracker.getActors()).length >= 2){

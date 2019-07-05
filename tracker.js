@@ -1,34 +1,34 @@
 
 function Tracker() {
 
-	let actors = {};
-	let dict = {};
-	let actorPointer = 1;
+	this.actors = {};
+	this.dict = {};
+	this.actorPointer = 1;
 
 	dereference = (name) => {
-		if(!dict[name]) {
+		if(!this.dict[name]) {
 			console.error("No valid actor with name " + name);
 			return null;
 		}
-		if(!actors[dict[name]]) {
-			console.error("Dereferencing error with name " + name +" and reference " + dict[name]);
+		if(!this.actors[this.dict[name]]) {
+			console.error("Dereferencing error with name " + name +" and reference " + this.dict[name]);
 			return null;
 		}
-		return actors[dict[name]];
+		return this.actors[this.dict[name]];
 	}
 	rereference = (id) => {
-		if(!actors[id]){
+		if(!this.actors[id]){
 			console.error("No valid actor with id "+id);
 			return null;
 		}
-		return actors[id].name;
+		return this.actors[id].name;
 	}
 	getActorById = (id) => {
-		if(!actors[id]){
+		if(!this.actors[id]){
 			console.error("No valid actor with id "+id);
 			return null;
 		}
-		return actors[id];
+		return this.actors[id];
 	}
 
 	getActor = (name) => {return dereference(name);}
@@ -39,49 +39,49 @@ function Tracker() {
 			return;
 		}
 		let name = actor.name;
-		if(!!dict[actor.name]) {
+		if(!!this.dict[actor.name]) {
 			count = 2;
 			namenew = actor.name;
-			while(dict[namenew]) {
+			while(this.dict[namenew]) {
 				namenew = name + " " + count;
 				count++;
 			}
 			name = namenew;
 			console.log("Name already existet, changed to: " + name);
 		}
-		actors[actorPointer] = {
+		this.actors[this.actorPointer] = {
 			'name': name,
 			'ini': !!actor.ini ? actor.ini : 0,
 			'lp': !!actor.lp ? actor.lp : 0,
 			'ap': !!actor.ap ? actor.ap : 0,
 			'kp': !!actor.kp ? actor.kp : 0,
-			'id': actorPointer,
+			'id': this.actorPointer,
 			'notes': {}
 		}
-		dict[name] = actorPointer;
-		actorPointer++;
+		this.dict[name] = this.actorPointer;
+		this.actorPointer++;
 		turns.updateActors();
 		return dereference(name);
 	}
 
 	getActors = () => {
-		return actors;
+		return this.actors;
 	}
 
 	updateActor = (name, property, value) => {
-		if(!dict[name]) {
+		if(!this.dict[name]) {
 			console.error("Trying to update non-existant actor: " + name);
 			return;
 		}
-		if(typeof actors[dict[name]][property] === "undefined") {
+		if(typeof this.actors[this.dict[name]][property] === "undefined") {
 			console.error("Trying to update actor " + name + " with invalid property: " + property);
 			return;
 		}
-		actors[dict[name]][property] = value;
+		this.actors[this.dict[name]][property] = value;
 		if(property == "name") {
-			dict[value] = dict[name];
-			actorPointer++;
-			delete dict[name];
+			this.dict[value] = this.dict[name];
+			this.actorPointer++;
+			delete this.dict[name];
 		}
 		if(property == "ini") {
 			generateSortedActorList();
@@ -90,7 +90,7 @@ function Tracker() {
 	}
 
 	autoUpdate = (name, property) => {
-		if(!dict[name]){
+		if(!this.dict[name]){
 			console.error("Trying to auto-update non-existant actor: " + name);
 			return;
 		}
@@ -99,7 +99,7 @@ function Tracker() {
 			console.error("Card for actor " + name + " could not be found during auto-update");
 			return;
 		}
-		let target = card.querySelector("#actor-card-" + property + "-" + dict[name]);
+		let target = card.querySelector("#actor-card-" + property + "-" + this.dict[name]);
 		if(!target) {
 			console.error("Property "+ property +" for actor " + name + " could not be found during auto-update");
 			return;
@@ -125,15 +125,15 @@ function Tracker() {
 	}
 
 	deleteActor = (name) => {
-		delete actors[dict[name]];
-		delete dict[name];
+		delete this.actors[this.dict[name]];
+		delete this.dict[name];
 		let target = document.querySelector(".actor-card[data-actor='"+name+"']");
 		target.remove();
 		turns.updateActors();
 	}
 
 	getSortedActors = () => {
-		return Object.values(actors).sort((a1, a2) => {
+		return Object.values(this.actors).sort((a1, a2) => {
 			return a2.ini - a1.ini;
 		});
 	}

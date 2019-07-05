@@ -238,7 +238,7 @@ select, option {
 	flex-wrap: wrap;
 }
 
-.actor-card.active {
+.active {
 	background: #60DD60;
 }
 

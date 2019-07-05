@@ -16,14 +16,16 @@
 			<!-- Modules -->
             <div id="module-wrapper">
                 <!--Turn Tracker-->
-                <div class="module" data-status="open">
+                <div class="module" data-status="open" data-module="turns">
                     <div class="head">
                         <h3 class="centered">
                             #
                         </h3>
 					</div>
 					<div class="content centered">
+						<p>Runde: <span id="turnCounter">0</span></p>
 						<input type="button" value=">" onclick="nextTurn();">
+						<input type="button" value="X" onclick="resetTurns();">
 					</div>
                 </div>
 			</div>
