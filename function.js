@@ -49,3 +49,7 @@ function addCardStyle(actor, style) {
 function removeCardStyle(actor, style) {
 	document.querySelector(".actor-card[data-actor='"+actor.name+"']").classList.remove(style);
 }
+
+function scrollToElement(query) {
+	document.querySelector(query).scrollIntoView({block: "center", behavior: "smooth"});
+}

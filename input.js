@@ -40,6 +40,7 @@ const turns = {
 			activeActor = 0;
 		}
 		addCardStyle(tracker.getActorById(sortedIds[activeActor]), "active");
+		scrollToElement(".actor-card[data-actor='"+tracker.getActorById(sortedIds[activeActor]).name+"']");
 	},
 
 	updateActors: () => {
