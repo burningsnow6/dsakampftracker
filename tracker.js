@@ -86,6 +86,7 @@ function Tracker() {
 		if(property == "ini") {
 			generateSortedActorList();
 		}
+		turns.updateActors();
 	}
 
 	autoUpdate = (name, property) => {
